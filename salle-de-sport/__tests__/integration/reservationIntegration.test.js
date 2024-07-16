@@ -4,18 +4,7 @@ const { Member } = require("../../src/models/member");
 const { Reservation } = require("../../src/models/reservation");
 
 describe("Reservation Integration Tests", () => {
-  beforeAll(async () => {
-    // Connect to the database
-    await require("../db").connect();
-  });
-
-  afterAll(async () => {
-    // Disconnect from the database
-    await require("../db").disconnect();
-  });
-
   beforeEach(async () => {
-    // Clear the reservations and members collection before each test
     await Reservation.deleteMany({});
     await Member.deleteMany({});
   });

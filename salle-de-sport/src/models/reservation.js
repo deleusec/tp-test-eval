@@ -33,12 +33,16 @@ reservationSchema.methods.validateReservation = function() {
         return false;
     }
     return true;
+
+    // const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    // const reservationDateStr = this.reservationDate.toISOString().split('T')[0];
+    // if (!dateRegex.test(reservationDateStr)) {
+    //     return false;
+    // }
+    // return true;
 };
 
-// Dummy function to check machine availability (for demonstration)
 reservationSchema.methods.isMachineAvailable = function(gymId, machineId) {
-    // This function should check the availability of the machine
-    // For this example, let's assume machine2 is unavailable
     if (machineId === 'machine2') {
         return false;
     }

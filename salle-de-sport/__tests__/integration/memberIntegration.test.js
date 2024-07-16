@@ -1,14 +1,22 @@
 const request = require("supertest");
+const mongoose = require("mongoose");
 const app = require("../../src/app");
 const { Member } = require("../../src/models/member");
 
+let server;
+
 describe("Member Integration Tests", () => {
   beforeAll(async () => {
-    await require("../db").connect();
+    server = app.listen(4000); // Démarre le serveur sur le port 4000
+    await mongoose.connect(`${process.env.MONGODB_METHOD}://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_SERVER_URI}/${process.env.MONGODB_DATABASE}`, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
   });
 
   afterAll(async () => {
-    await require("../db").disconnect();
+    await mongoose.disconnect();
+    await server.close(); // Ferme le serveur
   });
 
   beforeEach(async () => {
@@ -23,7 +31,7 @@ describe("Member Integration Tests", () => {
       password: "Password123!",
     };
 
-    const response = await request(app)
+    const response = await request(server)
       .post("/api/members")
       .send(newMember)
       .expect(201);
@@ -44,7 +52,7 @@ describe("Member Integration Tests", () => {
       password: "Password123!",
     };
 
-    const response = await request(app)
+    const response = await request(server)
       .post("/api/members")
       .send(newMember)
       .expect(400);

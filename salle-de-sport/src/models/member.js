@@ -29,7 +29,7 @@ const memberSchema = new Schema({
     timestamps: true
 });
 
-// Validation function
+// Validation function as an instance method
 memberSchema.methods.validateMember = function() {
     if (!this.firstName || !this.lastName || !this.email || !this.password) {
         return false;
