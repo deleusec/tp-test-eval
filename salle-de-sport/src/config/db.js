@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 
 const mongoDBURI = `${process.env.MONGODB_METHOD}://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_SERVER_URI}/${process.env.MONGODB_DATABASE}`;
 
-mongoose.connect(mongoDBURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(mongoDBURI);
 
 mongoose.connection.on('connected', () => {
   console.log('Connection to MongoDB established successfully');
